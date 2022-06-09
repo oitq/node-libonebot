@@ -1,32 +1,33 @@
 {
-  "name": "@lc-cn/ts-dev-template",
-  "version": "1.0.0",
-  "description": "ts开发环境配置",
+  "name": "node-libonebot",
+  "version": "0.0.1-2",
+  "description": "node的LibOneBot库",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node .",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "dev": "ts-node-dev -r tsconfig-paths/register ./src/index.ts",
     "pub": "npm publish --access public",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lc-cn/ts-dev-template.git"
+    "url": "git+https://github.com/liucl-cn/node-libonebot.git"
   },
   "keywords": [
     "ts",
-    "dev",
-    "template"
+    "onebot"
   ],
   "author": "凉菜",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lc-cn/ts-dev-template/issues"
+    "url": "https://github.com/liucl-cn/node-libonebot/issues"
   },
-  "homepage": "https://github.com/lc-cn/ts-dev-template#readme",
+  "homepage": "https://github.com/liucl-cn/node-libonebot#readme",
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.7",
+    "@types/koa-websocket": "^5.0.7",
     "@types/node": "latest",
+    "crypto": "^1.0.1",
     "ts-node-dev": "latest",
     "tsc-alias": "latest",
     "tsconfig-paths": "latest",
@@ -37,5 +38,12 @@
     "/lib/**/*.d.ts",
     "/lib/**/LICENSE"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@koa/router": "^10.1.1",
+    "chalk": "^5.0.1",
+    "dayjs": "^1.11.2",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-websocket": "^7.0.0"
+  }
 }
