@@ -1,7 +1,7 @@
 export type Message = MessageSegment[] | TelegramMessageSegment[];
 
 export namespace Message {
-    export function alt(content: Message): string {
+    export function row(content: Message): string {
         let alt: string = ""
         for (const seg of content) {
             alt = alt + MessageSegment.alt(seg)
@@ -10,17 +10,17 @@ export namespace Message {
     }
 }
 
-export type MessageSegment = BaseMessageSegment<"text", MessageSegment.Text> | BaseMessageSegment<"mention", MessageSegment.Mention> | BaseMessageSegment<"mention_all", MessageSegment.MentionAll> | BaseMessageSegment<"image", MessageSegment.Image> | BaseMessageSegment<"voice", MessageSegment.Voice> | BaseMessageSegment<"audio", MessageSegment.Audio> | BaseMessageSegment<"video", MessageSegment.Video> | BaseMessageSegment<"audio", MessageSegment.Audio> | BaseMessageSegment<"video", MessageSegment.Video> | BaseMessageSegment<"file", MessageSegment.File> | BaseMessageSegment<"location", MessageSegment.Location> | BaseMessageSegment<"reply", MessageSegment.Reply>
+export type MessageSegment = BaseMessageSegment<"text", MessageSegment.Text> | BaseMessageSegment<"at", MessageSegment.At> | BaseMessageSegment<"at", MessageSegment.AtAll> | BaseMessageSegment<"image", MessageSegment.Image> | BaseMessageSegment<"voice", MessageSegment.Voice> | BaseMessageSegment<"audio", MessageSegment.Audio> | BaseMessageSegment<"video", MessageSegment.Video> | BaseMessageSegment<"audio", MessageSegment.Audio> | BaseMessageSegment<"video", MessageSegment.Video> | BaseMessageSegment<"file", MessageSegment.File> | BaseMessageSegment<"location", MessageSegment.Location> | BaseMessageSegment<"reply", MessageSegment.Reply>
 
 export interface BaseMessageSegment<T, E> {
     type: T,
     data: E
 }
 
-export type TelegramMessageSegment = BaseMessageSegment<"mention", ExtendMessageSegment.Mention> | BaseMessageSegment<'telegram.bot_command' | 'telegram.url' | 'telegram.bold' | 'telegram.cashtag' | "telegram.italic" | "telegram.underline" | "telegram.strikethrough" | 'telegram.email' | "telegram.phone_number" | "telegram.spoiler" | "telegram.code", ExtendMessageSegment.RichText> | BaseMessageSegment<"telegram.text_mention", ExtendMessageSegment.TextMention> | BaseMessageSegment<"telegram.text_link", ExtendMessageSegment.TextLink> | BaseMessageSegment<"telegram.animation", ExtendMessageSegment.Animation> | BaseMessageSegment<"telegram.sticker", ExtendMessageSegment.Sticker> | MessageSegment
+export type TelegramMessageSegment = BaseMessageSegment<"at", ExtendMessageSegment.At> | BaseMessageSegment<'telegram.bot_command' | 'telegram.url' | 'telegram.bold' | 'telegram.cashtag' | "telegram.italic" | "telegram.underline" | "telegram.strikethrough" | 'telegram.email' | "telegram.phone_number" | "telegram.spoiler" | "telegram.code", ExtendMessageSegment.RichText> | BaseMessageSegment<"telegram.text_at", ExtendMessageSegment.TextMention> | BaseMessageSegment<"telegram.text_link", ExtendMessageSegment.TextLink> | BaseMessageSegment<"telegram.animation", ExtendMessageSegment.Animation> | BaseMessageSegment<"telegram.sticker", ExtendMessageSegment.Sticker> | MessageSegment
 
 export namespace ExtendMessageSegment {
-    export interface Mention {
+    export interface At {
         user_id: "",
         'telegram.text': string
         [prop: string]: any
@@ -56,11 +56,11 @@ export namespace MessageSegment {
         text: string,
         [prop: string]: any
     }
-    export interface Mention {
+    export interface At {
         user_id: string,
         [prop: string]: any
     }
-    export interface MentionAll {
+    export interface AtAll {
         [prop: string]: any
     }
     export interface Image {
@@ -99,10 +99,8 @@ export namespace MessageSegment {
         let telegramRich = ['telegram.bot_command', 'telegram.url', 'telegram.bold', 'telegram.cashtag', "telegram.italic", "telegram.underline", "telegram.strikethrough", 'telegram.email', "telegram.phone_number", "telegram.spoiler", "telegram.code"]
         if (content.type === "text") {
             return content.data.text
-        } else if (content.type === "mention") {
-            return `[提及:${content.data.user_id}]`
-        } else if (content.type === "mention_all") {
-            return `[提及所有人]`
+        } else if (content.type === "at") {
+            return `[at:${content.data.user_id}]`
         } else if (content.type === "image") {
             return `[图片]`
         } else if (content.type === "voice") {
@@ -121,7 +119,7 @@ export namespace MessageSegment {
             return content.data.text
         } else if (telegramRich.includes(content.type)) {
             return content.data.text
-        } else if (content.type === 'telegram.text_mention') {
+        } else if (content.type === 'telegram.text_at') {
             return `[文本提及:${content.data.user_id}]`
         } else if (content.type === 'telegram.animation') {
             return '[动图]'

@@ -19,7 +19,7 @@ export interface Extended {
 }
 
 export interface SendMessage extends Extended {
-    detail_type: "private" | "group",
+    sub_type: "private" | "group",
     group_id?: string,
     user_id?: string,
     message: Message | string,

@@ -3,7 +3,7 @@ import { Message } from "../message"
 export type MessageContent = {
     message_id: string,
     message: Message,
-    alt_message: string,
+    row_message: string,
     user_id: string,
     sub_type: string,
     [prop: string]: any,
@@ -12,11 +12,11 @@ export type MessageContent = {
 type MessageEventType = Private | Group
 
 interface Private {
-    detail_type: "private"
+    sub_type: "private"
 }
 
 interface Group {
-    detail_type: "group",
+    sub_type: "group",
     group_id: string
 }
 
@@ -30,11 +30,10 @@ export namespace MessageContent {
         return {
             group_id,
             message_id,
-            alt_message: Message.alt(message),
+            row_message: Message.row(message),
             message,
             user_id,
-            sub_type: "",
-            detail_type: "group",
+            sub_type: "group",
         }
     }
     export function new_private_message_content(
@@ -44,11 +43,10 @@ export namespace MessageContent {
     ): MessageContent {
         return {
             message_id,
-            alt_message: Message.alt(message),
+            row_message: Message.row(message),
             message,
             user_id,
-            sub_type: "",
-            detail_type: "private",
+            sub_type: "private",
         }
     }
 }

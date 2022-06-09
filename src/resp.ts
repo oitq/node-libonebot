@@ -117,7 +117,7 @@ export namespace VersionContent {
         impl: "Tl_default",
         platform: "empty",
         version: "0.0.0",
-        onebot_version: "12",
+        onebot_version: "11",
     }
 }
 
