@@ -1,6 +1,6 @@
 {
   "name": "node-libonebot",
-  "version": "0.0.1-2",
+  "version": "1.0.0",
   "description": "node的LibOneBot库",
   "main": "lib/index.js",
   "scripts": {
